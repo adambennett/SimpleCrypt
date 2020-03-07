@@ -1,3 +1,7 @@
+package main.zipcoder;
+
+import main.zipcoder.ROT13;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -86,6 +90,17 @@ public class ROT13Test {
         System.out.println(actual);
         // Then
         assertTrue(actual.equals(Q1));
+    }
+
+    @Test
+    public void textFileEncryptionAndDecryptionTest() {
+        ROT13 cipher = new ROT13('a', 'n');
+        String expected = cipher.readIn("sonnet18.txt");
+        String encrypt = cipher.crypt(expected);
+        cipher.writeTo("sonnet18.enc", encrypt);        // this doesn't really write, it's faked
+        String decryptInput = cipher.readIn("sonnet18.enc");
+        String actual = cipher.crypt(decryptInput);
+        Assert.assertEquals(expected, actual);
     }
 
 }
